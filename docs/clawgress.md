@@ -52,6 +52,11 @@ clawgress status
 
 ## API Usage
 
+### Status
+**Endpoint:** `GET /clawgress/health`
+
+Returns bind9 + nftables status and recent deny stats.
+
 The Clawgress REST API (running on port 8080 by default) allows remote policy updates.
 
 ### Update Policy

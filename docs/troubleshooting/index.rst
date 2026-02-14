@@ -8,6 +8,41 @@ Sometimes things break or don't work as expected. This section describes
 several troubleshooting tools provided by VyOS that can help when something
 goes wrong.
 
+Clawgress quick checks
+======================
+
+Bind9 + RPZ
+-----------
+
+.. code-block:: none
+
+  systemctl is-active bind9
+  ls -la /etc/bind/rpz/
+  head -n 10 /etc/bind/rpz/allow.rpz
+
+Firewall (nftables)
+-------------------
+
+.. code-block:: none
+
+  nft list table inet clawgress
+
+Policy + status
+---------------
+
+.. code-block:: none
+
+  clawgress status
+  clawgress stats
+
+Logs
+----
+
+.. code-block:: none
+
+  journalctl -u bind9 -S "10 minutes ago" | grep rpz | tail -n 5
+  journalctl -t kernel -S "10 minutes ago" | grep clawgress-deny | tail -n 5
+
 ******************
 Connectivity Tests
 ******************
