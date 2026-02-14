@@ -2,6 +2,15 @@
 
 Clawgress uses a single `policy.json` source of truth to manage DNS RPZ (via bind9) and egress firewall rules (via nftables).
 
+## Install (ISO)
+
+1. Download the latest ISO from the build artifacts.
+2. Boot the ISO in your hypervisor (VMware/VirtualBox/QEMU).
+3. Login and install to disk (standard VyOS install flow).
+4. Reboot into the installed system.
+
+> Note: Clawgress uses bind9 for DNS/RPZ; dnsmasq is not used for DNS forwarding.
+
 ## CLI Usage
 
 The `clawgress` command provides operational control over the policy.
@@ -24,6 +33,21 @@ clawgress apply
 ### Check Status
 ```bash
 clawgress status
+```
+
+## Minimal policy.json
+```json
+{
+  "version": 1,
+  "allow": {
+    "domains": ["api.openai.com"],
+    "ips": ["1.2.3.4/32"],
+    "ports": [53, 80, 443]
+  },
+  "labels": {
+    "api.openai.com": "llm-provider"
+  }
+}
 ```
 
 ## API Usage
