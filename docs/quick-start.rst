@@ -5,23 +5,49 @@ Quick Start
 ###########
 
 This chapter will guide you on how to get up to speed quickly using your new
-VyOS system. It will show you a very basic configuration example that will
+Clawgress system. It will show you a very basic configuration example that will
 provide a :ref:`nat` gateway for a device with two network interfaces
-(``eth0`` and ``eth1``).
+(``eth0`` and ``eth1``), plus the minimum Clawgress policy import.
 
 .. _quick-start-configuration-mode:
 
 Configuration Mode
 ##################
 
-By default, VyOS is in operational mode, and the command prompt displays
-a ``$``. To configure VyOS, you will need to enter configuration mode, resulting
+By default, Clawgress is in operational mode, and the command prompt displays
+a ``$``. To configure Clawgress, you will need to enter configuration mode, resulting
 in the command prompt displaying a ``#``, as demonstrated below:
 
 .. code-block:: none
 
-  vyos@vyos$ configure
-  vyos@vyos#
+  vyos@clawgress$ configure
+  vyos@clawgress#
+
+Clawgress policy quick-start
+############################
+
+1) Copy a minimal policy to the system:
+
+.. code-block:: none
+
+  cat <<'EOF' > /config/clawgress/policy.json
+  {
+    "version": 1,
+    "allow": {
+      "domains": ["api.openai.com"],
+      "ports": [53, 80, 443]
+    },
+    "labels": {
+      "api.openai.com": "llm-provider"
+    }
+  }
+  EOF
+
+2) Apply policy (bind9 RPZ + nftables rules):
+
+.. code-block:: none
+
+  clawgress apply
 
 Commit and Save
 ################
