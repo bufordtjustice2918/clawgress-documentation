@@ -1,24 +1,23 @@
-Starting with VyOS 1.2 (`crux`) our documentation is hosted on ReadTheDocs at https://docs.vyos.io
+Clawgress documentation is hosted on ReadTheDocs.
 
-Our old wiki with documentation from the VyOS 1.1.x and early 1.2.0 era can still be accessed via the
-[Wayback Machine](https://web.archive.org/web/20200225171529/https://wiki.vyos.net/wiki/Main_Page)
+Clawgress is a fork of VyOS focused on agentic firewall capabilities.
 
 # Build
 
-[![Documentation Status](https://readthedocs.org/projects/vyos/badge/?version=latest)](https://docs.vyos.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/clawgress/badge/?version=latest)]
 
 # Versions
 
-Our documentation repository follows the same branching scheme as the VyOS source itself.
-We maintain one documentation branch per VyOS release.
-The default branch that contains the most recent VyOS documentation is called `current`
-and matches the latest VyOS rolling release.
+Our documentation repository follows the same branching scheme as the Clawgress source itself.
+We maintain one documentation branch per Clawgress release.
+The default branch that contains the most recent Clawgress documentation is called `current`
+and matches the latest Clawgress rolling release.
 
 All new documentation enhancements go to the `current` branch. If those changes
-are beneficial for previous VyOS documentation versions they will be
+are beneficial for previous Clawgress documentation versions they will be
 cherry-picked to the appropriate branch(es).
 
-VyOS branches are named after constellations sorted by area from smallest to largest.
+Clawgress branches are named after constellations sorted by area from smallest to largest.
 There are 88 of them, here's the
 [complete list](https://en.wikipedia.org/wiki/IAU_designated_constellations_by_area).
 
@@ -75,7 +74,7 @@ automatically (and almost instantly) without the need to rebuild or refresh manu
 ## Docker
 
 Using our [Dockerfile](docker/Dockerfile) you can create your own Docker container
-that is used to build a VyOS documentation.
+that is used to build Clawgress documentation.
 
 ## Setup
 
@@ -83,23 +82,23 @@ You can either build the container on your own or directly fetch it prebuilt
 from Dockerhub. If you want to build it for yourself, use the following command.
 
 ```bash
-$ docker build -t vyos/vyos-documentation docker
+$ docker build -t clawgress/clawgress-documentation docker
 ```
 
 ### Building documentation
 
-If the `vyos/vyos-documentation` container could not be found locally it will be
+If the `clawgress/clawgress-documentation` container could not be found locally it will be
 automatically fetched from Dockerhub.
 
 ```bash
-$ git clone https://github.com/vyos/vyos-documentation.git
+$ git clone https://github.com/bufordtjustice2918/clawgress-documentation.git
 
-$ cd vyos-documentation
+$ cd clawgress-documentation
 
-$ docker run --rm -it -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) vyos/vyos-documentation make html
+$ docker run --rm -it -v "$(pwd)":/clawgress -w /clawgress/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) clawgress/clawgress-documentation make html
 
 # For sphinx autobuild
-$ docker run --rm -it -p 8000:8000 -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) vyos/vyos-documentation make livehtml
+$ docker run --rm -it -p 8000:8000 -v "$(pwd)":/clawgress -w /clawgress/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) clawgress/clawgress-documentation make livehtml
 ```
 
 ### Test the docs
@@ -107,11 +106,11 @@ $ docker run --rm -it -p 8000:8000 -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$
 To test all files, run:
 
 ```bash
-$ docker run --rm -it -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) vyos/vyos-documentation vale .
+$ docker run --rm -it -v "$(pwd)":/clawgress -w /clawgress/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) clawgress/clawgress-documentation vale .
 ```
 
 to test a specific file (e.g. `quick-start.rst`)
 
 ```bash
-$ docker run --rm -it -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) vyos/vyos-documentation vale quick-start.rst
+$ docker run --rm -it -v "$(pwd)":/clawgress -w /clawgress/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) clawgress/clawgress-documentation vale quick-start.rst
 ```
