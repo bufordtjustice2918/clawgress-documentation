@@ -35,6 +35,11 @@ clawgress apply
 clawgress status
 ```
 
+### Import + apply policy
+```bash
+clawgress import --policy /path/to/policy.json
+```
+
 ## Minimal policy.json
 ```json
 {
@@ -56,6 +61,27 @@ clawgress status
 **Endpoint:** `GET /clawgress/health`
 
 Returns bind9 + nftables status and recent deny stats.
+
+### Apply policy
+**Endpoint:** `POST /clawgress/policy`
+
+Payload:
+```json
+{
+  "key": "your-api-key",
+  "policy": {
+    "version": 1,
+    "allow": {
+      "domains": ["api.openai.com"],
+      "ports": [53, 80, 443]
+    },
+    "labels": {
+      "api.openai.com": "llm-provider"
+    }
+  },
+  "apply": true
+}
+```
 
 The Clawgress REST API (running on port 8080 by default) allows remote policy updates.
 

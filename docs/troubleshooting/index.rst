@@ -43,6 +43,12 @@ Logs
   journalctl -u bind9 -S "10 minutes ago" | grep rpz | tail -n 5
   journalctl -t kernel -S "10 minutes ago" | grep clawgress-deny | tail -n 5
 
+If RPZ logs are missing, ensure policy was applied:
+
+.. code-block:: none
+
+  clawgress apply
+
 ******************
 Connectivity Tests
 ******************
